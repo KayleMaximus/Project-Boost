@@ -1,0 +1,87 @@
+{
+    "name": "Game Input",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "95c7e567-527d-4b0e-a9b2-34a8d277c562",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "6059b271-9b07-45fa-82db-057cc67b6b57",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Thurst",
+                    "type": "Value",
+                    "id": "c64a810e-da12-4b5b-b165-5918f9fe0ac3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Rotate",
+                    "id": "287d76d4-9451-4ad5-b2c1-1edb9cb2e1b2",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "d227127e-c5ab-4091-9985-1e8da8e5fdc8",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "b33bb73a-a447-4c51-af05-39cbf73a15e2",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "e1636b47-5926-4792-ad30-449f1d7a4491",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Thurst",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "2b31633d-a413-46c1-b93e-ee9fa6bc8063",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Thurst",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
