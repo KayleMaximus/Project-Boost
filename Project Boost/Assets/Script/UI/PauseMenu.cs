@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
@@ -9,6 +10,21 @@ public class PauseMenu : MonoBehaviour
     public static bool _isPause = false;
 
     public GameObject _pauseMenuUI;
+
+    private GameInput _input;
+
+    private void OnEnable()
+    {
+        _input = new GameInput();
+        _input.Player.Pause.performed += OpenPauseMenu;
+        _input.Player.Pause.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _input.Player.Pause.performed -= OpenPauseMenu;
+        _input.Player.Pause.Disable();
+    }
 
     private void OnApplicationFocus(bool focus)
     {
@@ -42,22 +58,19 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    void Update()
+    private void OpenPauseMenu(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (_isPause)
         {
-            if (_isPause)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
+            Resume();
+        }
+        else
+        {
+            Pause();
         }
     }
 
-    private void Pause()
+    public void Pause()
     {
         _pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;

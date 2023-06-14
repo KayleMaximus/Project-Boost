@@ -8,4 +8,9 @@ public class ShowOnMobile : MonoBehaviour
     {
         gameObject.SetActive(Application.isMobilePlatform);
     }
+
+    public void ShowPauseMenu()
+    {
+        FindObjectOfType<PauseMenu>().Pause();
+    }
 }
