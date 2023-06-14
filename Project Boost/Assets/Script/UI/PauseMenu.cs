@@ -10,6 +10,38 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject _pauseMenuUI;
 
+    private void OnApplicationFocus(bool focus)
+    {
+        Debug.Log("Focus: " + focus);
+        if (!focus)
+        {
+            Pause();
+        }
+        else
+        {
+            if (_isPause)
+            {
+                Resume();
+            }
+        }
+    }
+
+    private void OnApplicationPause(bool isInterupt)
+    {
+        Debug.Log("Pause: " + isInterupt);
+        if (isInterupt)
+        {
+            Pause();
+        }
+        else
+        {
+            if (_isPause)
+            {
+                Resume();
+            }
+        }
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
