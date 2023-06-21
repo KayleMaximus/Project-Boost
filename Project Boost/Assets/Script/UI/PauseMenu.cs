@@ -33,13 +33,6 @@ public class PauseMenu : MonoBehaviour
         {
             Pause();
         }
-        else
-        {
-            if (_isPause)
-            {
-                Resume();
-            }
-        }
     }
 
     private void OnApplicationPause(bool isInterupt)
@@ -48,13 +41,6 @@ public class PauseMenu : MonoBehaviour
         if (isInterupt)
         {
             Pause();
-        }
-        else
-        {
-            if (_isPause)
-            {
-                Resume();
-            }
         }
     }
 
