@@ -133,6 +133,8 @@ public class Rocket : MonoBehaviour
         _audioSource.Stop();
         _audioSource.PlayOneShot(_successSound);
         _successPart.Play();
+        int tempLevelReach = PlayerPrefs.GetInt("lvReach") + 1;
+        PlayerPrefs.SetInt("lvReach", tempLevelReach);
         Invoke("LoadNextLevel", _levelLoadDelay);
     }
 
