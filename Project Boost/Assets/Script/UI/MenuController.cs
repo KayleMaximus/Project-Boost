@@ -213,8 +213,10 @@ public class MenuController : MonoBehaviour
 
     }
 
-    public void LoadNextLevel()
+    public async void LoadNextLevel()
     {
+
+        await AuthService.LoginAnonymously();
         _sceneLoader.LoadSelectedLevel("Lobby");
     }
 }

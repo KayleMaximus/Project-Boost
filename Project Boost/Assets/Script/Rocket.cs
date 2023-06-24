@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using System.IO;
+
 public class Rocket : MonoBehaviour
 {
     Rigidbody _rigidbody;
     AudioSource _audioSource;
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 100f;
-    [SerializeField] float _levelLoadDelay = 2f;
+    [SerializeField] float _levelLoadDelay = 10f;
     [SerializeField] AudioClip _mainEngine;
     [SerializeField] AudioClip _deathSound;
     [SerializeField] AudioClip _successSound;
@@ -22,6 +24,8 @@ public class Rocket : MonoBehaviour
 
     enum State { Alive, Dying, Transcending }
     State _state = State.Alive;
+
+    private static readonly ISaveClient _client = new CloudSaveClient();
 
     void Start()
     {
@@ -135,6 +139,8 @@ public class Rocket : MonoBehaviour
         _successPart.Play();
         int tempLevelReach = PlayerPrefs.GetInt("lvReach") + 1;
         PlayerPrefs.SetInt("lvReach", tempLevelReach);
+        //SavePlayerProgress();
+        CloudSave(tempLevelReach);
         Invoke("LoadNextLevel", _levelLoadDelay);
     }
 
@@ -164,4 +170,40 @@ public class Rocket : MonoBehaviour
     }
     #endregion
 
+    private async void CloudSave(int levelReach)
+    {
+        await _client.Save("lvReach", levelReach);
+    }
+
+    // Update this method with the player progress you want to save
+    private string GetPlayerProgressData()
+    {
+        // Example: Saving player level progress
+        int playerLevel = PlayerPrefs.GetInt("lvReach", 1);
+        return JsonUtility.ToJson(playerLevel);
+    }
+
+    // Call this method whenever the player makes progress
+    public void SavePlayerProgress()
+    {
+        string saveData = GetPlayerProgressData();
+        string filePath = Application.dataPath + "/saveData.json";
+
+        // Write the JSON data to a file
+        File.WriteAllText(filePath, saveData);
+
+        // Push the file to GitHub using Git command-line tool with token authentication
+        string remoteUrl = "https://github.com/KayleMaximus/testApi.git"; // Replace with your remote repository URL
+        string branch = "main"; // Replace with the branch name you want to push to
+        string personalAccessToken = "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"; // Replace with your personal access token
+
+        string gitCommands = $"-C \"{Application.dataPath}\" init" +
+                             $" && -C \"{Application.dataPath}\" add saveData.json" +
+                             $" && -C \"{Application.dataPath}\" commit -m \"Update player progress\"" +
+                             $" && -C \"{Application.dataPath}\" remote add origin {remoteUrl}" +
+                             $" && -C \"{Application.dataPath}\" push origin {branch} " +
+                             $"\"Authorization: token {personalAccessToken}\"";
+
+        System.Diagnostics.Process.Start("git", gitCommands);
+    }
 }

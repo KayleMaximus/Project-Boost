@@ -7,15 +7,27 @@ public class LevelManager : MonoBehaviour
 {
     public Button[] _levelButtons;
 
+    private static readonly ISaveClient _client = new CloudSaveClient();
+
     private void Start()
     {
         for (int i = 0; i < _levelButtons.Length; i++)
         {
             int levelReach = PlayerPrefs.GetInt("lvReach", 1);
-            if( i + 1 > levelReach)
+            if (i + 1 > levelReach)
             {
                 _levelButtons[i].interactable = false;
             }
         }
+        if (PlayerPrefs.GetInt("lvReach", 1) > 1)
+        {
+            CloudLoad();
+        }
+    }
+
+    private async void CloudLoad()
+    {
+        var stringData = await _client.Load<int>("lvReach");
+        Debug.Log("Cloud Load: " + stringData);
     }
 }
