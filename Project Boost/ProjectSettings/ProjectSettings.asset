@@ -822,11 +822,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: 9cd53daf-6d4f-4acf-b896-4dc388530d31
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Boost
+  organizationId: khaihkttran
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
