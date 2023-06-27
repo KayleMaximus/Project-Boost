@@ -7,10 +7,13 @@ public class LevelManager : MonoBehaviour
 {
     public Button[] _levelButtons;
 
-    private static readonly ISaveClient _client = new CloudSaveClient();
+    private  ISaveClient _client;
 
     private void Start()
     {
+
+        _client = new CloudSaveClient();
+        PlayerPrefs.SetInt("lvReach", 1);
         for (int i = 0; i < _levelButtons.Length; i++)
         {
             int levelReach = PlayerPrefs.GetInt("lvReach", 1);

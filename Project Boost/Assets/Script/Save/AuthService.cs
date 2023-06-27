@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
-
-public static class AuthService
+using UnityEngine;
+public class AuthService : MonoBehaviour
 {
     public static async Task LoginAnonymously()
     {

@@ -4,15 +4,17 @@ using UnityEngine;
 using CliWrap;
 using CliWrap.Buffered;
 using System.IO;
-
+using System.Threading.Tasks;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
 public class TestCli : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        //testCli();
-        SavePlayerProgress();
+
     }
+
 
     // Update this method with the player progress you want to save
     private string GetPlayerProgressData()

@@ -23,10 +23,11 @@ public class Rocket : MonoBehaviour
     enum State { Alive, Dying, Transcending }
     State _state = State.Alive;
 
-    private static readonly ISaveClient _client = new CloudSaveClient();
+    private ISaveClient _client;
 
     void Start()
     {
+        _client = new CloudSaveClient();
         _isCollision = true;
         _rigidbody = GetComponent<Rigidbody>();
         _audioSource = GetComponent<AudioSource>();
@@ -105,7 +106,7 @@ public class Rocket : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            LoadNextLevel();
+            StartSuccessSequence();
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
