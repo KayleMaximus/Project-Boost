@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 using System.IO;
+using CliWrap;
+using CliWrap.Buffered;
 
 public class Rocket : MonoBehaviour
 {
@@ -139,7 +137,7 @@ public class Rocket : MonoBehaviour
         _successPart.Play();
         int tempLevelReach = PlayerPrefs.GetInt("lvReach") + 1;
         PlayerPrefs.SetInt("lvReach", tempLevelReach);
-        //SavePlayerProgress();
+        SavePlayerProgress();
         CloudSave(tempLevelReach);
         Invoke("LoadNextLevel", _levelLoadDelay);
     }
@@ -172,39 +170,43 @@ public class Rocket : MonoBehaviour
 
     private async void CloudSave(int levelReach)
     {
-        //await _client.Save("lvReach", levelReach);
         await _client.Save("PlayerLevelData", new PlayerData { playerId = PlayerData.defaultPlayerId, levelReach = levelReach });
     }
 
-    // Update this method with the player progress you want to save
     private string GetPlayerProgressData()
     {
         // Example: Saving player level progress
         int playerLevel = PlayerPrefs.GetInt("lvReach", 1);
-        return JsonUtility.ToJson(playerLevel);
+        PlayerData player = new PlayerData { levelReach = playerLevel, playerId = PlayerData.defaultPlayerId };
+        return JsonUtility.ToJson(player);
     }
 
     // Call this method whenever the player makes progress
-    public void SavePlayerProgress()
+    public async void SavePlayerProgress()
     {
         string saveData = GetPlayerProgressData();
-        string filePath = Application.dataPath + "/saveData.json";
-
+        string filePath = @"D:\Skill++\Unity Project\Projects\testApi\saveData.json";
+        string folderPath = @"D:\Skill++\Unity Project\Projects\testApi";
         // Write the JSON data to a file
-        File.WriteAllText(filePath, saveData);
+        WriteToFile(filePath, saveData);
 
         // Push the file to GitHub using Git command-line tool with token authentication
         string remoteUrl = "https://github.com/KayleMaximus/testApi.git"; // Replace with your remote repository URL
         string branch = "main"; // Replace with the branch name you want to push to
         string personalAccessToken = "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"; // Replace with your personal access token
 
-        string gitCommands = $"-C \"{Application.dataPath}\" init" +
-                             $" && -C \"{Application.dataPath}\" add saveData.json" +
-                             $" && -C \"{Application.dataPath}\" commit -m \"Update player progress\"" +
-                             $" && -C \"{Application.dataPath}\" remote add origin {remoteUrl}" +
-                             $" && -C \"{Application.dataPath}\" push origin {branch} " +
-                             $"\"Authorization: token {personalAccessToken}\"";
+        var gitHubResults = await Cli.Wrap(@"D:\Skill++\Unity Project\Projects\pushFile.bat").ExecuteBufferedAsync();
+        Debug.Log(gitHubResults.StandardOutput);
+        Debug.Log(gitHubResults.StandardError);
+    }
 
-        System.Diagnostics.Process.Start("git", gitCommands);
+    private void WriteToFile(string filePath, string data)
+    {
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+        }
+
+        File.WriteAllText(filePath, data);
     }
 }
