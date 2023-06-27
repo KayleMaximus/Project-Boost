@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Newtonsoft.Json;
 public class LevelManager : MonoBehaviour
 {
     public Button[] _levelButtons;
@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
 
     private async void CloudLoad()
     {
-        var stringData = await _client.Load<int>("lvReach");
-        Debug.Log("Cloud Load: " + stringData);
+        PlayerData objectData = await _client.Load<PlayerData>("PlayerLevelData");
+        Debug.Log("Cloud Load Object: " + objectData.playerId + " : " + objectData.levelReach);
     }
 }

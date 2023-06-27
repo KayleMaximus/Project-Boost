@@ -172,7 +172,8 @@ public class Rocket : MonoBehaviour
 
     private async void CloudSave(int levelReach)
     {
-        await _client.Save("lvReach", levelReach);
+        //await _client.Save("lvReach", levelReach);
+        await _client.Save("PlayerLevelData", new PlayerData { playerId = PlayerData.defaultPlayerId, levelReach = levelReach });
     }
 
     // Update this method with the player progress you want to save
