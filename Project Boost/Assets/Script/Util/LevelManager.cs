@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(GetLevel());
+        //StartCoroutine(GetLevel());
     }
 
     IEnumerator GetLevel()
@@ -22,17 +22,6 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log(getLevelRequest.downloadHandler.text);
             LevelData levelData = JsonConvert.DeserializeObject<LevelData>(getLevelRequest.downloadHandler.text);
-            Debug.Log("Level: " + levelData.levelReach);
-            PlayerPrefs.SetInt("lvReach", levelData.levelReach);
-            for (int i = 0; i < _levelButtons.Length; i++)
-            {
-                //int levelReach = PlayerPrefs.GetInt("lvReach", 1);
-                int levelReach = levelData.levelReach;
-                if (i + 1 > levelReach)
-                {
-                    _levelButtons[i].interactable = false;
-                }
-            }
         }
         else
         {

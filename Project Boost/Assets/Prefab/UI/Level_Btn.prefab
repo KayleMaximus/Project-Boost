@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6941460257224707806}
   - component: {fileID: 1730856449444637654}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 2924313815611057312}
   - component: {fileID: 8699003454149518499}
   - component: {fileID: 6994482886871460614}
+  - component: {fileID: 4310256805233767485}
   m_Layer: 5
   m_Name: Level_Btn
   m_TagString: Untagged
@@ -285,3 +286,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &4310256805233767485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6911785572911833867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a3b5239bb378544b054033897387d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: 
+  level: 0
+  time: 0
+  active: 0

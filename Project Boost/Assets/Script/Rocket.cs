@@ -103,7 +103,7 @@ public class Rocket : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            LoadNextLevel();
+            StartSuccessSequence();
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
